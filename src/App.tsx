@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
+import { Production } from "./components/Production";
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
             <Redirect to="/production" />
           </Route>
 
-          <Route path="/production">Produção</Route>
+          <Route path="/production/:selectedProduct?">
+            <Production />
+          </Route>
 
           <Route path="/stock">Estoque</Route>
         </Switch>
