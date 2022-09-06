@@ -3,6 +3,7 @@ import {
   useHistory,
   useParams,
   useRouteMatch,
+  useLocation,
 } from "react-router-dom";
 import data from "../../assets/data.json";
 import { ButtonVisibility, StockContainer } from "./styles";
@@ -14,13 +15,24 @@ type ParamsType = {
 export const Stock = () => {
   const history = useHistory();
   const routeMatch = useRouteMatch();
-  const showStock = false;
+  const location = useLocation();
+  const queryParam = new URLSearchParams(location.search);
+
+  //console.log(useLocation());
+  const showStock = queryParam.get("showStock") === "true";
+
+  function toggleShow() {
+    history.replace({
+      pathname: routeMatch.path,
+      search: `?showStock=${!showStock}`,
+    });
+  }
 
   return (
     <div>
       <h3>
         Estoque de Produtos
-        <ButtonVisibility>
+        <ButtonVisibility onClick={toggleShow}>
           {showStock ? <AiFillEyeInvisible /> : <AiFillEye />}
         </ButtonVisibility>
       </h3>
