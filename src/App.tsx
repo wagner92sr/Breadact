@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Production } from "./components/Production";
 import { Stock } from "./components/Stock";
+import { NotFound } from "./components/NotFound";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
 
           <Route path="/stock">
             <Stock />
+          </Route>
+
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </BrowserRouter>
