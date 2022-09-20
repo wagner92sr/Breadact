@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Production } from "./components/Production";
 import { Stock } from "./components/Stock";
@@ -12,27 +12,27 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/production" />
+        <Routes>
+          <Route path="/" element={<Navigate to="/production" />}/>
+          
+          <Route path="/production">
+            <Route path=":selectedProduct" element={<Production/>}/>
+            <Route element={<Production/>} index/>            
           </Route>
 
-          <Route path="/production/:selectedProduct?">
-            <Production />
-          </Route>
+          <Route 
+             path="/stock"
+             element={
+              <ProtectedRoute >
+                <Stock />
+              </ProtectedRoute>
+             } 
+          />          
 
-          <ProtectedRoute path="/stock">
-            <Stock />
-          </ProtectedRoute>
+          <Route path="/login" element={<Login />} />
 
-          <Route path="/login">
-            <Login />
-          </Route>
-
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
+          <Route path="*" element={<NotFound />}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );

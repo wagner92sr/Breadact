@@ -1,11 +1,11 @@
-import { RouteProps, Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export const ProtectedRoute = (props: RouteProps) => {
+export const ProtectedRoute = (props: {children: JSX.Element}) => {
   const token = localStorage.getItem("token");
 
   if (token) {
-    return <Route {...props} />;
+    return props.children;
   }
 
-  return <Redirect to="/login" />;
+  return <Navigate to="/login" />;
 };
